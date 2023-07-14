@@ -14,3 +14,21 @@ Below was a sample image of when a certain marker is clicked
 <p align="justify"> &nbsp The project also empowers the public to report geohazard incidents such as floods, landslides, and sinkholes within the designated scope. By providing a user-friendly platform for incident submission, we enable individuals to contribute valuable information and enhance overall situational awareness. This collaborative approach promotes community engagement and supports effective disaster response and mitigation efforts. </p>
 
 ![Marker Details](images/Community%20Page%20-Desktop%20View.png)
+
+We couldn't have pulled this off without the helped of the following people:
+* Sohanur Rahman Shanto
+* Christian Glory
+* Bernhard Vallant
+* Maxim Danilov
+* KenWhitesell
+* Jethro Sedoguio
+
+Reddit Users:
+* shiuidu
+* imjustnoob45
+* Narfi1
+* welcome_cumin
+* Boryalyc
+* mca62511
+
+We're tremendously grateful to you all!
