@@ -1,0 +1,128 @@
+{% extends "auxiliary/base.html" %}
+{% block content %}
+  <section class="history-page-content">
+    <h2 class="history-head page-title">History</h2>
+    <section class="geohazards">
+      {% for history in histories %}
+          <div class="banner container">
+              <!-- Filter form -->
+              <form class="filter-form flex-row" method="GET" action="{% url 'history' %}">
+                  <label class="hist-filter-label" for="barangay_name">Barangay:</label>
+                  <div class="form-group">
+                      <select name="barangay_name" id="barangay_name" class="form-control">
+                        {% for choice in histories.model.BARANGAY %}
+                            <option value="{{ choice.0 }}"
+                                {% if selected_barangay_name == choice.0 %} selected {% endif %}>{{ choice.1 }}
+                            </option>
+                        {% endfor %}
+                      </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary pd-1"><i class="fa-solid fa-filter"></i></button>
+              </form>
+            <div class="banner-group">
+              <h3><u>{{history.barangay_name}}</u></h3>
+              <img class="banner-img" src="{{ history.barangay_img.url }}" alt="Banner image">             
+            </div>
+            {% if history.barangay_info|default:'' %}
+              <p>{{history.barangay_info|linebreaks}}</p>
+            {% else %}
+              <h2 class="wd-80 mt-1"><i class="fa-solid fa-folder-open"></i> No Information Available </h2>
+            {% endif %}
+            <div class="banner-btns">
+              <button id="banner-geo-btn" class="geo-btn active">GeoHazards</button>
+              <button id="banner-asses-btn" class="asses-btn">Assessments</button>
+            </div>
+          </div>
+          <div id="geo-container" class="geo-container active container">
+            {% if history.geohazards.all %}
+              {% for hazard in history.geohazards.all %}
+                  <div class="geo-item">
+                    <img class="geo-img" src="{{hazard.geohazard_img.url}}" alt="GeoHazard images">
+                    <div>
+                      <strong>{{hazard.date_published}}</strong>
+                      <p>{{hazard.geohazard_info}}</p>
+                    </div>
+                  </div>              
+              {% endfor %}  
+            {% else %}
+              <h3 class="center bg-white"><i class="fa-solid fa-folder-open"></i> No Information Available </h3>
+            {% endif %}
+          </div>      
+        </section>
+        {% if history.assessment.all %}
+          <section id="assessments" class="assessments">
+            <h3>GeoHazard Assessments</h3>
+              <table class="table">
+                <tr>
+                  <th>Purok / Sitio</th>
+                  <th>Landslide Susceptibility Rating</th>
+                  <th>Flood Susceptibility Rating</th>
+                  <th>Recommendations</th>
+                </tr>
+              {% for assessment in history.assessment.all %}  
+                <tr>
+                  <td>
+                    <strong>{{assessment.purok_name}}</strong><br><em>{{assessment.purok_coordinates}}</em>
+                  </td>
+                  <td>{{assessment.landslide_rating}}</td>
+                  <td>{{assessment.flood_rating}}</td>
+                  <td>
+                    <p class="recs">{{assessment.recommendation}}</p>
+                  </td>
+                </tr>
+              {% endfor %}    
+              </table>
+        {% else %}
+          <h3 class="center pd-1 bg-white"><i class="fa-solid fa-folder-open"></i> No Information Available </h3>   
+        {% endif %}   
+      {% endfor %}
+      </section>
+      <div class="pagination flex-row">  
+        <div class="buttons-wrap flex-row">
+          {% if page_obj.has_previous %}
+            <button class="page-btn">
+              <a class="page-link" href="?page={{page_obj.previous_page_number}}">Prev</a>
+            </button>
+          {% else %}
+              <button class="page-btn"><a class="page-link" href="#">Start</a></button>
+          {% endif %}  
+
+          <button class="page-btn">
+            <a class="page-link" href="?page=1">1</a>
+          </button>
+          <button class="page-btn">
+            <a class="page-link" href="?page=2">2</a>
+          </button>
+          <div class="desktop-only">
+            <button class="page-btn">
+              <a class="page-link" href="?page=3">3</a>
+            </button>
+            <button class="page-btn">
+              <a class="page-link" href="?page=4">4</a>
+            </button>
+            <button class="page-btn">
+              <a class="page-link" href="?page=5">5</a>
+            </button>              
+          </div>
+          <button class="page-btn idle">
+            <a class="page-link" href="#">...</a>
+          </button>   
+          <button class="page-btn">
+            <a class="page-link" href="?page=13">13</a>
+          </button>
+          {% if page_obj.has_next %}
+            <button class="page-btn">
+              <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+            </button>
+          {% else %}
+              <button class="page-btn"><a class="page-link" href="#">End</a></button>
+          {% endif %}
+        </div>
+        <!-- Arrow Up -->
+        <div class="scroll-to-top">
+          <i class="fa-solid fa-arrow-up"></i>
+        </div>
+      </div>
+  </section>
+{% endblock content %}      
+ 

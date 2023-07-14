@@ -1,0 +1,129 @@
+{% extends 'auxiliary/base.html' %}
+{% load tz %}
+{% load static %}
+
+{% block content %}
+  <section class="community-page-content">
+    <div class="user-feed">
+      <div class="feed-head">
+        <strong>Community</strong>
+        <button class="sort-btn"><i class="fa-solid fa-sort"></i></button>
+        <div class="sort-options">
+          <a href="?sort=latest">Latest <i class="fa-solid fa-clock"></i></a>
+          <a href="?sort=upvotes">Most <i class="fa-solid fa-up-long"></i></a>
+          <a href="?sort=flags">Most <i class="fa-solid fa-flag"></i></a>
+        </div>
+      </div>
+      <div class="post-container">
+        <div class="content-box">
+          {% for combined_post in posts %}
+            {% if combined_post.guest_post.is_approved or combined_post.post.is_approved %}
+              {% if combined_post.guest_post.post_img or combined_post.post.post_img %}
+                <div class="card">
+                  <!-- Anonymous Users Posts -->
+                  {% if combined_post.guest_post.author == "Anonymous User" %}
+                    <img src="{% static 'auxiliary/images/alabel-logo.png' %}" class="prof-image">
+                    <div class="reaction">
+                      <div>
+                        <button><i class="fa-solid fa-up-long fa-beat"></i></button>
+                        <p>{{ combined_post.guest_post.total_upvotes }}</p>
+                      </div>
+                      <div>
+                        <button><i class="fa-solid fa-flag fa-shake"></i></button>
+                        <p>{{ combined_post.guest_post.total_flags }}</p>
+                      </div>
+                    </div>
+                    <strong class="prof-name">Anonymous <em class="date">{{ combined_post.guest_post.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ combined_post.guest_post.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+                    <strong class="post-title"> <a href="{% url 'guest-post-detail' combined_post.guest_post.id %}">{{ combined_post.guest_post.location }}</a></strong>
+                    <div class="post-content">
+                      <img class="content-img" src="{{ combined_post.guest_post.post_img.url }}" alt="content-image">
+                      <p>{{ combined_post.guest_post.content }}</p>
+                    </div>
+                  {% else %}
+                  <!-- Registered Users Posts -->
+                    <img src="{{ combined_post.post.author.profile.image.url }}" class="prof-image">
+                    <div class="reaction">
+                      <div>
+                        <button><i class="fa-solid fa-up-long fa-beat"></i></button>
+                        <p>{{ combined_post.post.total_upvotes }}</p>
+                      </div>
+                      <div>
+                        <button><i class="fa-solid fa-flag fa-shake"></i></button>
+                        <p>{{ combined_post.post.total_flags }}</p>
+                      </div>
+                    </div>
+                    <strong class="prof-name"><a href="{% url 'user-posts' combined_post.post.author.username %}">{{ combined_post.post.author }}</a> <em class="date">{{ combined_post.post.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ combined_post.post.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+                    <strong class="post-title"> <a href="{% url 'post-detail' combined_post.post.id %}">{{ combined_post.post.location }}</a></strong>
+                    <div class="post-content">
+                      <img class="content-img" src="{{ combined_post.post.post_img.url }}" alt="content-image">
+                      <p>{{ combined_post.post.content }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+              {% else %}
+              <!-- If Posts don't contain images -->
+                <div class="card">
+                  <!-- Anonymous Users Posts -->
+                  {% if combined_post.guest_post.author == "Anonymous User" %}
+                    <img src="{% static 'auxiliary/images/alabel-logo.png' %}" class="prof-image">
+                    <div class="reaction">
+                      <div>
+                        <button><i class="fa-solid fa-up-long fa-beat"></i></button>
+                        <p>{{ combined_post.guest_post.total_upvotes }}</p>
+                      </div>
+                      <div>
+                        <button><i class="fa-solid fa-flag fa-shake"></i></button>
+                        <p>{{ combined_post.guest_post.total_flags }}</p>
+                      </div>
+                    </div>
+                    <strong class="prof-name">Anonymous <em class="date">{{ combined_post.guest_post.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ combined_post.guest_post.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+                    <strong class="post-title"> <a href="{% url 'guest-post-detail' combined_post.guest_post.id %}">{{ combined_post.guest_post.location }}</a></strong>
+                    <p class="post-content">{{ combined_post.guest_post.content }}</p>
+                  {% else %}
+                  <!-- Registered Users Posts -->
+                    <img src="{{ combined_post.post.author.profile.image.url }}" class="prof-image">
+                    <div class="reaction">
+                      <div>
+                        <button><i class="fa-solid fa-up-long fa-beat"></i></button>
+                        <p>{{ combined_post.post.total_upvotes }}</p>
+                      </div>
+                      <div>
+                        <button><i class="fa-solid fa-flag fa-shake"></i></button>
+                        <p>{{ combined_post.post.total_flags }}</p>
+                      </div>
+                    </div>
+                    <strong class="prof-name"><a href="{% url 'user-posts' combined_post.post.author.username %}">{{ combined_post.post.author }}</a> <em class="date">{{ combined_post.post.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ combined_post.post.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+                    <strong class="post-title"> <a href="{% url 'post-detail' combined_post.post.id %}">{{ combined_post.post.location }}</a></strong>
+                    <p class="post-content">{{ combined_post.post.content }}</p>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>  
+    </div>
+    <div class="community-info">
+      <h3 class="side-head">Info</h3>
+      <div class="comm-icons">
+        <div class="flex-row">
+          <i class="fa-solid fa-up-long"></i>
+          <p>Do you think a certain post spreads awareness and <strong>helpful?</strong> Why not show your support by clicking/tapping the 'upvote' icon on the post you like.</p>
+        </div>
+        <div class="flex-row">
+          <i class="fa-solid fa-flag"></i>
+          <p>Do you think a certain post spreads <strong>misinformation?</strong> Show the community that there's something wrong with a certain post!</p>
+        </div>
+        <div class="flex-row">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p><strong>Note:</strong> You must be logged in to react to a post. Users need to click the 'Barangay' name to be able to react. Clicking the icons while on the page will not save your reactions.</p>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+        <button class="btn-primary"><a href="{% url 'post-create' %}">Post a Concern</a></button>
+      {% else %}
+        <button class="btn-primary"><a href="{% url 'guest-post-create' %}">Post As Guest</a></button>
+      {% endif %}
+    </div>
+  </section>
+{% endblock content %}

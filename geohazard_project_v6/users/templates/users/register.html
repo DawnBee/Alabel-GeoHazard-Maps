@@ -1,0 +1,49 @@
+{% extends "auxiliary/base.html" %}
+{% load static %}
+{% block content %}  
+  <section class="register-page-content">
+    <div class="form-container">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="reg-form-segment flex-clm">
+          <div class="flex-clm">
+            <img src="{% static 'auxiliary/images/alabel-logo.png' %}" class="form-img">
+            <strong>Alabel GeoHazard Maps</strong>
+          </div>
+          <div class="flex-clm">
+            <h3>Welcome Back!</h3>
+            <p>Already have an account? <br> login with your personal info, to keep connected with us!</p>
+            <button class="btn"><a href="{% url 'login' %}">Login</a></button>
+          </div>
+        </div>
+        <fieldset class="form-fields flex-clm">
+          <div class="legend-grp">
+            <legend>Create Account</legend>
+            <em>Be part of the geohazard team now!</em>
+          </div>
+          <div class="field-wrap">
+            <span><i class="fa-regular fa-user"></i></span>
+             {{form.username}}
+             {{form.username.errors}}
+          </div>
+          <div class="field-wrap">
+            <span><i class="fa-regular fa-envelope"></i></span>
+            {{form.email}}
+            {{form.email.errors}}
+          </div>
+          <div class="field-wrap">
+            <span><i class="fa-solid fa-key"></i></span>
+            {{form.password1}}
+            {{form.password1.errors}}
+          </div>
+          <div class="field-wrap">
+            <span><i class="fa-solid fa-lock"></i></span>
+            {{form.password2}}
+            {{form.password2.errors}}
+          </div>
+          <button class="btn" type="submit">Register</button>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+{% endblock content %}  

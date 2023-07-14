@@ -1,0 +1,131 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="DawnBee">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'auxiliary/asset/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'auxiliary/asset/css/forms.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'auxiliary/asset/css/profile.css' %}">   
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Tab Icon -->
+    <link rel="icon" type="image/png" href="{% static 'auxiliary/images/mdrrmo-logo.png' %}"> 
+    <!-- JS  -->
+    <script type="text/javascript" src="{% static 'auxiliary/asset/js/app.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'auxiliary/asset/js/flash.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'auxiliary/asset/js/profile.js' %}" defer></script>
+    <script type="text/javascript" src="{% static 'auxiliary/asset/js/history.js' %}" defer></script>
+    {% if title %}
+      <title> Alabel GeoHazard Map - {{title}}</title>
+    {% else %}
+      <title> Alabel GeoHazard Map </title>
+    {% endif %}
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo-group">
+          <a href="{% url 'home' %}">
+            <img class="logo-img" src="{% static 'auxiliary/images/alabel-logo.png' %}" alt="alabel-logo">
+          </a>
+
+          <h1 class="logo"><a href="{% url 'home' %}">Alabel GeoHazard Maps</a></h1>
+        </div>
+        <section class="nav-menu-desktop">
+          <ul>
+            <li class="nav-list dropdown">
+              <a class="nav-link" href="#">Maps</a>
+              <span class="drop-arrow" aria-label="Shows dropdown menu"></span>
+              <ul class="drop-menu" aria-expanded="false">
+                <li><a href="{% url 'flood' %}">Flood</a></li>
+                <li><a href="{% url 'landslide' %}">Landslide</a></li>
+              </ul>
+            </li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'history' %}">History</a></li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'contacts' %}">Contacts</a></li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'post-list' %}">Community</a></li>
+
+            {% if user.is_authenticated %}
+              <div class="login-wrap">
+                <a href="{% url 'profile' %}">
+                  <i class="profile-icon fa-solid fa-user"></i>
+                </a>
+                <button class="login-btn"><a href="{% url 'logout'  %}">Logout</a></button>
+              </div>  
+
+            {% else %}
+              <div class="login-wrap">
+                <button class="login-btn"><a href="{% url 'register' %}"> Join </a></button>
+              </div>  
+            {% endif %}
+           
+          </ul>
+        </section>
+        <section class="nav-menu-mobile" aria-expanded="false">
+          <ul>
+            <button class="mobile-nav-btn" aria-label="Toggle mobile navigation">
+              <i class="fa fa-chevron-left"></i>
+              <i class="fa fa-chevron-right"></i>
+            </button>
+            <li class="nav-list dropdown" aria-expanded="false">
+              <a class="nav-link" href="#">Maps</a>
+              <button class="mobile-drop-arrow drop-arrow" aria-label="Shows mobile nav dropdown">
+                <i class="fa fa-chevron-down"></i>
+              </button>
+              <ul class="mobile-drop-menu drop-menu">
+                <li><a href="{% url 'flood' %}">Flood</a></li>
+                <li><a href="{% url 'landslide' %}">Landslide</a></li>
+              </ul>
+            </li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'history' %}">History</a></li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'contacts' %}">Contacts</a></li>
+            <li class="nav-list"><a class="nav-link" href="{% url 'post-list' %}">Community</a></li>
+          </ul>          
+        </section>
+      </nav>
+    </header>
+
+    <main id="main">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash-message">
+            <span class="close-flash">&times;</span>
+            <p>{{message}}</p>
+          </div>
+        {% endfor %}
+      {%  endif %}
+      {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+      <section class="wide-footer">     
+        <div class="footer-group">
+          <strong>Mission</strong>
+          <p>To effectively implement a Disaster Risk Reduction and Management plan through active involvement of all stakeholders in all governance, a liveable resilient community.</p>
+        </div>
+        <div class="footer-group">
+          <strong>Vision</strong>
+          <p>Alabel is a disaster resilient , pro-active and convergent stakeholders towards a safe community.</p>
+        </div> 
+        <div class="footer-group">
+          <strong>About The Devs</strong>
+          <p>IT students from Mindanao State University who loves solving real-life problems using technologies.</p>
+        </div>
+        <div class="footer-link-group">
+           <strong>Follow Us:</strong>
+           <ul>
+             <li class="footer-item"><a class="fa fa-facebook" href="https://www.facebook.com/alabel.mdrrmo"></a></li>
+             <li class="footer-item"><a class="fa fa-solid fa-house-flag" href="https://alabel.gov.ph/mdrrmo/"></a></li>
+             <li class="footer-item"><a class="fa-brands fa-github" href="https://github.com/DawnBee/Alabel-GeoHazard-Maps"></a></li>
+           </ul>
+        </div>  
+      </section>
+      <section class="narrow-footer">
+        <a href="#">@2022 Copyright: AlabelGeoHazardMap.com</a>
+      </section>
+    </footer> 
+  </body>
+</html>

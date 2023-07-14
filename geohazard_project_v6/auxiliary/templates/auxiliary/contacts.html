@@ -1,0 +1,43 @@
+{% extends "auxiliary/base.html" %}
+{% load static %}
+{% block content %}
+  <section class="contact-page-content">
+    <h2 class="contacts-head page-title">Contacts</h2>
+    <div class="contacts-container container">
+      <div class="contact-content">
+        <div class="txt-grp">
+          <strong>MDRRMO</strong>
+          <p>The primary objective of MDRRMO (Municipal Disaster Risk Reduction and Management Office) is to ensure effective and efficient implementation of civil protection programme through an integrated, multi-sectoral and community based approach and strategies for the protection and preservation of life, property and environment.</p>
+          <button class="btn"><a href="https://www.facebook.com/alabel.mdrrmo">view page</a></button>
+        </div>
+
+        <div class="flex-clm tel-grp">
+          <img class="contact-img mb-1" src="{% static 'auxiliary/images/mdrrmo-logo.jpg' %}" alt="contact-image">
+          <strong>MDRRMO HOTLINES:</strong>
+          <ul class="contact-list">
+            {% for hotline in mdrrm_office %}
+              <li class="contact-item">{{hotline.channel_type}} - {{hotline.contact_num}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="contact-content">
+        <div class=txt-grp>
+          <strong>Alabel Information Office</strong>
+          <p>This is the Official Information and Communication Facebook Page of Alabel managed by the Office of the Municipal Mayor through the support of the various departments of the Local government Unit of Alabel, capital town of Sarangani Province.</p>
+          <button class="btn"><a href="https://www.facebook.com/AlabelPIO">view page</a></button>
+        </div>
+        <div class="flex-clm tel-grp">
+          <img class="contact-img mb-1" src="{% static 'auxiliary/images/alabel-IT.png' %}" alt="contact-image">
+          <strong>EMERGENCY HOTLINES:</strong>
+          <ul class="contact-list">
+            {% for hotline in alabel_info_office %}
+              <li class="contact-item">{{hotline.channel_type}} - {{hotline.contact_num}}</li>
+            {% endfor %}  
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

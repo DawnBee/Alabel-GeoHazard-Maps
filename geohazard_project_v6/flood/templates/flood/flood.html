@@ -1,0 +1,146 @@
+{% extends "auxiliary/base.html" %}
+{% block content %}
+  <section class="map-page-content">
+    <button class="head-btn" aria-label="Styling purpose only">Flood</button>
+    <div class="map-container" id="map-container">
+      {{flood_map | safe }}
+    </div>
+    <aside class="sidebar">
+      <button class="head-btn" aria-label="Styling purpose only">Flood</button>
+      <section class="legend-container">
+        <h3 class="legend-head">Legend:</h3>
+        <div class="legend-group">
+          <div class="legend-item">
+            <div class="icon-group">
+              <span class="flag-circle">
+                <i class="fa fa-flag"></i>
+              </span>
+              <p>Barangays</p>
+            </div>
+            <div class="icon-group">
+              <span class="home-circle">
+                <i class="fa fa-home"></i>
+              </span>
+              <p>Evacuation Centers</p>
+            </div>
+          </div>
+          <div class="legend-item">
+            <div class="icon-group">
+              <span class="bullhorn-circle">
+                <i class="fa fa-bullhorn"></i>
+              </span>
+              <p>Warning Devices</p>
+            </div>
+            <div class="icon-group">
+              <span class="exclamation-circle">
+                <i class="fa fa-exclamation"></i>
+              </span>
+              <p>Warning Signs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="levels-container">
+        <h3 class="level-head">Flood Susceptibility</h3>
+        <div class="level-item">
+          <span class="level-box flood-very-high"></span>
+          <div class="level-group">
+            <strong>Very High</strong>
+            <p>Areas likely to experience flood heights of greater than 2 meters and/or flood duration of more than 3 days. These areas are immediately flooded during heavy rains of several hours; include landforms of topographic lows such as active river channels, abandoned river channels and area along river banks; also prone to flashfloods.</p>
+          </div>
+        </div>
+        <div class="level-item">
+          <span class="level-box flood-high"></span>
+          <div class="level-group">
+            <strong>High</strong>
+            <p>Areas likely to experience flood heights of greater than 1 up to 2 meters and/or flood duration of more than 3 days. These areas are immediately flooded during heavy rains of several hours; include landforms of topographic lows such as active river channels, abandoned river channels and area along river banks; also prone to flashfloods.</p>
+          </div>
+        </div>
+        <div class="level-item">
+          <span class="level-box flood-moderate"></span>
+          <div class="level-group">
+            <strong>Moderate</strong>
+            <p>Areas likely to experience flood heights of greater than 0.5m up to 1 meter and/or flood duration of 1 to 3 days. These areas are subject to widespread inundation during prolonged and extensive heavy rainfall or extreme weather condition. Fluvial terraces, alluvial fans, and infilled valleys are areas moderately subjected to flooding.</p>
+          </div>
+        </div>
+        <div class="level-item">
+          <span class="level-box flood-low"></span>
+          <div class="level-group">
+            <strong>Low</strong>
+            <p>Areas likely to experience flood heights of 0.5 meter or less and/or flood duration of less than 1 day. These areas include low hills and gentle slopes. They also have sparse to moderate drainage density.</p>
+          </div>
+        </div>
+      </section>
+    </aside>
+    <div class="selection-tab-container">
+      <ul class="tab-box">
+        <li class="tab-btn btn-1 active">Guidelines</li>
+        <li class="tab-btn btn-2">Procedures</li>
+        <li class="tab-btn btn-3">News</li>
+      </ul>
+      <div class="content-box"> <!-- Guidelines -->
+        <div class="tab-content content-1 active">
+          {% if guidelines %}
+            <div class="bg-white center">
+              <p class="txt-main pd-tb-p5 txt-bold">Intended for Residents</p>
+            </div>
+            {% for guide in guidelines %}
+              <div class="content">
+                <h2>{{guide.alert_level}}</h2>
+                <p>{{guide.alert_level_guide|linebreaks}}</p>
+              </div>
+            {% endfor %} 
+          {% else %}
+            <div class="content">
+              <h2 class="center pd-1">No Data Available</h2>
+            </div>
+          {% endif %} 
+        </div>    
+
+        <div class="tab-content content-2"> <!-- Procedures -->
+          {% if procedures %}
+            <div class="bg-white center">
+              <p class="txt-orange pd-tb-p5 txt-bold">Intended for MDRRMOs/Responders</p>
+            </div>
+            {% for procedure in procedures %}
+              <div class="content">
+                <h2>{{procedure.procedure_name}}</h2>
+                <p>{{procedure.procedure_content|linebreaks}}</p>
+             </div>
+            {% endfor %} 
+          {% else %}
+            <div class="content">
+              <h2 class="center pd-1">No Data Available</h2>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="tab-content content-3"> <!-- News -->
+          {% if news %}
+            {% for post in news %}
+              {% if post.news_image  %}
+                <div class="content">
+                  <img class="content-pic" src="{{post.news_image.url}}" alt="news-pic">
+                    <h3>{{post.title}}</h3>
+                    <small>{{post.date_posted|date:"F d, Y"}}</small>
+                    <p>{{post.content|linebreaks}}</p>
+                </div>
+              {% else %}
+                <div class="content">
+                    <h3>{{post.title}}</h3>
+                    <small>{{post.date_posted|date:"F d, Y"}}</small>
+                    <p>{{post.content|linebreaks}}</p>
+                </div>
+              {% endif %}       
+            {% endfor %}
+          {% else %}
+            <div class="content">
+              <h2 class="center pd-1">No Data Available</h2>
+            </div>
+          {% endif %} 
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock content %}    

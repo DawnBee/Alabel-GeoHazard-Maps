@@ -1,0 +1,63 @@
+{% extends "auxiliary/base.html" %}
+{% load tz %}
+{% load static %}
+{% block content %}
+  {% if object.post_img %}
+    <div class="card card-detail">
+      <img src="{% static 'auxiliary/images/alabel-logo.png' %}" class="prof-image">
+      <div class="reaction">
+        <div>
+          <form method="post" action="{% url 'guest-post-reacts' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" name="reaction" value="upvote">
+              <i class="fa-solid fa-up-long fa-beat"></i>
+            </button>
+          </form>
+          <p>{{ total_upvotes }}</p>
+        </div>
+        <div>
+          <form method="post" action="{% url 'guest-post-reacts' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" name="reaction" value="flag">
+              <i class="fa-solid fa-flag fa-shake"></i>
+            </button>
+          </form>
+          <p>{{ total_flags }}</p>
+        </div>
+      </div>
+      <strong class="prof-name">Anonymous <em class="date">{{ object.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ object.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+      <strong class="post-title"> {{ object.location }}</strong>
+      <div class="post-content">
+        <img class="content-img" src="{{ object.post_img.url }}" alt="content-image">
+        <p>{{ object.content }}</p>
+      </div>
+    </div>
+  {% else %}
+    <div class="card card-detail">
+      <img src="{% static 'auxiliary/images/alabel-logo.png' %}" class="prof-image">
+      <div class="reaction">
+        <div>
+          <form method="post" action="{% url 'guest-post-reacts' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" name="reaction" value="upvote">
+              <i class="fa-solid fa-up-long fa-beat"></i>
+            </button>
+          </form>
+          <p>{{ total_upvotes }}</p>
+        </div>
+        <div>
+          <form method="post" action="{% url 'guest-post-reacts' object.pk %}">
+            {% csrf_token %}
+            <button type="submit" name="reaction" value="flag">
+              <i class="fa-solid fa-flag fa-shake"></i>
+            </button>
+          </form>
+          <p>{{ total_flags }}</p>
+        </div>
+      </div>
+      <strong class="prof-name">Anonymous <em class="date">{{ object.date_posted|timezone:"Asia/Manila"|date:"F d, Y" }} at {{ object.date_posted|timezone:"Asia/Manila"|time:"h:iA" }}</em></strong>
+      <strong class="post-title"> {{ object.location }}</strong>
+      <p class="post-content">{{ object.content }}</p>
+    </div>
+  {% endif %}
+{% endblock content %}

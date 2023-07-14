@@ -1,0 +1,30 @@
+{% extends "auxiliary/base.html" %}
+{% load static %}
+{% block content %}
+  <section class="post-create-content">
+    <div class="create-form-container">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-fields">
+            <legend>Post a Concern</legend>
+            <p class="txt-sml bord-rad-5 bg-yellow mb-1 pd-1 center"><em><strong>Note:</strong> Each post is verified by Admin before it displays in the community section. <br> This means new posts might take a while to appear in the community.</em></p>
+      
+            <!-- Post Image -->
+            <label for="id_post_img">Image<em class="txt-sml">(Optional)</em></label>
+            {{form.post_img}}
+
+            <!-- Post Location -->
+            <label for="id_location">Barangay</label>
+            {{form.location}}
+ 
+            <!-- Post Content -->
+            <label for="id_content">Content</label>
+            {{form.content}}
+          <div class="flex-row">
+            <button class="btn-primary mt-1 center" type="submit">Post</button>
+          </div>  
+        </fieldset>
+      </form>
+    </div>
+  </section>
+{% endblock content %}    

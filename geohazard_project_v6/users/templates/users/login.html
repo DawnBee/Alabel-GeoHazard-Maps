@@ -1,0 +1,21 @@
+{% extends "auxiliary/base.html" %}
+{% load static %}
+{% block content %}
+  <section class="login-page-content">
+    <div class="form-container">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-fields">
+          <div class="legend-grp">
+            <legend>Login Now!</legend>
+            <p>Join our community of geohazard enthusiasts. Login to access maps, post concerns, and stay informed.</p>
+          </div>
+            {{form}}
+          <div class="flex-row">
+            <button class="btn" type="submit">Login</button>
+          </div>  
+        </fieldset>
+      </form>
+    </div>
+  </section>
+{% endblock content %}    
