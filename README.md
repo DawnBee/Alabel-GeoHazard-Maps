@@ -5,4 +5,4 @@
 
 The system incorporates interactive maps where each marker represents a specific location and provides essential geohazard information. Users can click on these markers to access detailed data, including the nearest evacuation center, population statistics of the area, and estimated walking or vehicle speed towards the evacuation site. 
 
- ![Maps](images/Maps.png)
+ ![Maps](images/Maps.PNG)
