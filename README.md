@@ -13,4 +13,4 @@ Below was a sample image of when a certain marker is clicked
 
  The project empowers the public to report geohazard incidents such as floods, landslides, and sinkholes within the designated scope. By providing a user-friendly platform for incident submission, we enable individuals to contribute valuable information and enhance overall situational awareness. This collaborative approach promotes community engagement and supports effective disaster response and mitigation efforts.
 
-![Marker Details](images/Community%20Page%20-%20Desktop%20View.png)
+![Marker Details](images/Community%20Page%20-Desktop%20View.png)
