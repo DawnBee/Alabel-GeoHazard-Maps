@@ -7,7 +7,7 @@
 
 ![Maps](images/Maps.PNG)
 
-Below was a sample image of when a certain marker is clicked
+Below was a sample image of when a certain marker is clicked.
 
 ![Marker Details](images/Marker%20View.png)
 
